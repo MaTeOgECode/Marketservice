@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  enail: string = '';
+  email: string = '';
   password: string = '';
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
   login() {
-    this.authenticationService.login(this.enail, this.password)
+    this.authenticationService.login(this.email, this.password)
       .then(() => {
         this.router.navigate(['/user']);
       })

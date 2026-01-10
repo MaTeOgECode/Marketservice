@@ -20,5 +20,7 @@ export class RegisterComponent {
         console.log("Error al registrar", error);
       });
   }
-
+  login() {
+    this.router.navigate(['/login']);
+  }
 }
