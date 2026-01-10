@@ -1,1 +1,19 @@
-<p>register works!</p>
+<p>Registrate :D</p>
+<div>
+    <h2>Registrarse</h2>
+    <form (ngSubmit)="register()">
+        <div class="from-group">
+            <label for="email">Correo</label>
+            <input type="email" id="email" name="email" [(ngModel)]="email">
+        </div>
+        <div class="from-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password">
+        </div>
+
+        <div class="actions">
+            <button type="submit">Registrarse</button>
+            <button type="button" (click)="login()" class="login-button">Registrarse</button>
+        </div>
+    </form>
+</div>
