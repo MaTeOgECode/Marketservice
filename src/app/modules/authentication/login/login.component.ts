@@ -14,7 +14,11 @@ export class LoginComponent {
   login() {
     this.authenticationService.login(this.email, this.password)
       .then(() => {
+<<<<<<< Updated upstream
         this.router.navigate(['/admin']);
+=======
+        this.router.navigate(['/bienvenidausuario']);
+>>>>>>> Stashed changes
       })
       .catch((error) => {
         console.log('Error al iniciar sesión:', error);

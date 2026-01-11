@@ -8,12 +8,20 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+<<<<<<< Updated upstream
 import { DashBoardModule } from './modules/dash_board/dash-board.module';
+=======
+import { BienvenidaUsuarioComponent } from './modules/dash_board/bienvenida-usuario/bienvenida-usuario.component';
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
     AppComponent,
+<<<<<<< Updated upstream
 
+=======
+    BienvenidaUsuarioComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
