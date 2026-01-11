@@ -11,9 +11,9 @@ export class UserService {
   crearUsuario(uid: string, email: string) {
     // Restauramos el contexto de inyección manualmente
     return runInInjectionContext(this.injector, () => {
-      return this.firestore.collection('usuarios').doc(uid).set({
+      return this.firestore.collection('admin').doc(uid).set({
         email,
-        rol: 'usuario',
+        rol: 'admin',
         fechaCreado: new Date(),
       });
     });

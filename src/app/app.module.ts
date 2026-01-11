@@ -8,10 +8,12 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { DashBoardModule } from './modules/dash_board/dash-board.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -19,6 +21,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    DashBoardModule,
     AuthenticationModule,
   ],
   providers: [],

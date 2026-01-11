@@ -1,0 +1,56 @@
+/* Contenedor principal que centra todo en la pantalla */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Tarjeta de bienvenida */
+.card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+h2 {
+    color: #2d3436;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+p {
+    color: #636e72;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+/* Botón de cerrar sesión con estilo moderno */
+.btn-logout {
+    background-color: #ff7675;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-logout:hover {
+    background-color: #d63031;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(214, 48, 49, 0.3);
+}
+
+.btn-logout:active {
+    transform: translateY(0);
+}
