@@ -13,17 +13,16 @@ export class LoginComponent {
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
   login() {
     this.authenticationService.login(this.email, this.password)
-      .then(() => {
-<<<<<<< Updated upstream
-        this.router.navigate(['/admin']);
-=======
-        this.router.navigate(['/bienvenidausuario']);
->>>>>>> Stashed changes
+      .then((userData: any) => {
+        if (userData?.rol === 'admin') {
+          this.router.navigate(['/bienvenidaadmin']);
+        } else {
+          this.router.navigate(['/bienvenidausuario']);
+        }
       })
-      .catch((error) => {
-        console.log('Error al iniciar sesión:', error);
-      });
+      .catch(error => console.log(error));
   }
+
   register() {
     this.router.navigate(['/register']);
   }

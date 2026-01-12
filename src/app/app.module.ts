@@ -8,20 +8,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
-<<<<<<< Updated upstream
-import { DashBoardModule } from './modules/dash_board/dash-board.module';
-=======
 import { BienvenidaUsuarioComponent } from './modules/dash_board/bienvenida-usuario/bienvenida-usuario.component';
->>>>>>> Stashed changes
-
+import { BienvenidaAdminComponent } from './modules/dash_board/bienvenida-admin/bienvenida-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< Updated upstream
-
-=======
-    BienvenidaUsuarioComponent
->>>>>>> Stashed changes
+    BienvenidaUsuarioComponent,
+    BienvenidaAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +22,6 @@ import { BienvenidaUsuarioComponent } from './modules/dash_board/bienvenida-usua
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    DashBoardModule,
     AuthenticationModule,
   ],
   providers: [],
