@@ -22,19 +22,46 @@
 
 
 
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(
+    private firestore: AngularFirestore,
+    private injector: Injector
+  ) {}
 
-  crearUsuario(uid: string, email: string, rol: 'admin' | 'user' = 'user') {
-    return this.firestore.collection('usuarios').doc(uid).set({
-      email,
-      rol,
-      fechaCreado: new Date()
+  // 👉 COLECCIÓN USUARIOS
+  crearUsuario(uid: string, email: string, rol: 'user' | 'proveedor' | 'admin') {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection('usuarios').doc(uid).set({
+        email,
+        rol,
+        fechaCreado: new Date()
+      });
+    });
+  }
+
+  // 👉 COLECCIÓN PROVEEDORES (SOLO PROVEEDOR)
+  crearProveedor(
+    uid: string,
+    data: {
+      nombre: string;
+      especialidad: string;
+      ubicacion: string;
+      contacto: string;
+      email: string;
+    }
+  ) {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection('proveedores').doc(uid).set({
+        ...data,
+        fechaCreado: new Date()
+      });
     });
   }
 }

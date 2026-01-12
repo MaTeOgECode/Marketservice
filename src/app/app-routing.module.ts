@@ -5,13 +5,15 @@ import { RegisterComponent } from './modules/authentication/register/register.co
 import { BienvenidaAdminComponent } from './modules/dash_board/bienvenida-admin/bienvenida-admin.component';
 import { UserService } from './services/user.service';
 import { BienvenidaUsuarioComponent } from './modules/dash_board/bienvenida-usuario/bienvenida-usuario.component';
+import { BienvenidaProveedorComponent } from './modules/dash_board/bienvenida-proveedor/bienvenida-proveedor.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'user', component: UserService },
   { path: 'bienvenidausuario', component: BienvenidaUsuarioComponent },
-  { path: 'bienvenidaadmin', component: BienvenidaAdminComponent }
+  { path: 'bienvenidaadmin', component: BienvenidaAdminComponent },
+  { path: 'bienvenidaproveedor', component: BienvenidaProveedorComponent}
 ];
 
 @NgModule({
