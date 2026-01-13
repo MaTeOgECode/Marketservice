@@ -13,8 +13,8 @@ const routes: Routes = [
 
   {
     path: 'bienvenidaadmin', component: BienvenidaAdminComponent, children: [
-      { path: 'bienvenidaadmin/cambiar-rol', component: CambiarRolComponent },
-      { path: 'bienvenidaadmin/desactivar-usuario', component: DesactivarUsuarioComponent },
+      { path: 'cambiar-rol', component: CambiarRolComponent },
+      { path: 'desactivar-usuario', component: DesactivarUsuarioComponent },
     ]
   },
   { path: "bienvenidausuario", component: BienvenidaUsuarioComponent },
