@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 
 @Component({
@@ -9,8 +10,9 @@ import { Router } from '@angular/router';
   styleUrl: './bienvenida-admin.component.css'
 })
 export class BienvenidaAdminComponent {
-  constructor(private router: Router) { }
-  logout() {
+  constructor(private router: Router, private authService: AuthenticationService) { }
+  cerrarSesion() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

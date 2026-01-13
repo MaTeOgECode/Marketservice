@@ -8,13 +8,10 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
-import { BienvenidaUsuarioComponent } from './modules/dash_board/bienvenida-usuario/bienvenida-usuario.component';
-import { BienvenidaAdminComponent } from './modules/dash_board/bienvenida-admin/bienvenida-admin.component';
+import { DashBoardModule } from './modules/dash_board/dash-board.module';
 @NgModule({
   declarations: [
     AppComponent,
-    BienvenidaUsuarioComponent,
-    BienvenidaAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +20,7 @@ import { BienvenidaAdminComponent } from './modules/dash_board/bienvenida-admin/
     AngularFirestoreModule,
     AngularFireAuthModule,
     AuthenticationModule,
+    DashBoardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
