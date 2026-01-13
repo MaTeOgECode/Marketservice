@@ -25,7 +25,7 @@ export class RegisterComponent {
     private authService: AuthenticationService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   registrar() {
 
@@ -36,7 +36,7 @@ export class RegisterComponent {
       }
     }
 
-    this.authService.register(this.email, this.password, this.rol)
+    this.authService.register(this.email, this.password)
       .then((cred: any) => {
         const uid = cred.user.uid;
 

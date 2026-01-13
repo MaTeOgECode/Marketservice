@@ -8,19 +8,26 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
   email: string = '';
   password: string = '';
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
   login() {
-    this.authenticationService.login(this.email, this.password)
-      .then((userData: any) => {
-        if (userData?.rol === 'admin') {
-          this.router.navigate(['/bienvenidaadmin']);
-        } else {
-          this.router.navigate(['/bienvenidausuario']);
-        }
+    this.authenticationService.
+      login(this.email, this.password)
+      .then((cred) => {
+        const uid = cred.user?.uid;
+        this.authenticationService.obtenerUsuario(uid!).subscribe((usuario: any) => {
+          console.log(usuario);
+          if (usuario.rol === 'admin') {
+            this.router.navigate(['/bienvenidaadmin']);
+          } else if (usuario.rol === 'proveedor') {
+            this.router.navigate(['/bienvenidadproveedor']);
+          } else {
+            this.router.navigate(['/bienvenidausuario']);
+          }
+        })
       })
-      .catch(error => console.log(error));
   }
 
   register() {

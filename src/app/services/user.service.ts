@@ -33,7 +33,7 @@ export class UserService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) {}
+  ) { }
 
   // 👉 COLECCIÓN USUARIOS
   crearUsuario(uid: string, email: string, rol: 'user' | 'proveedor' | 'admin') {
@@ -62,6 +62,11 @@ export class UserService {
         ...data,
         fechaCreado: new Date()
       });
+    });
+  }
+  obtenerUsuario(uid: string) {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection('usuarios').doc(uid).valueChanges();
     });
   }
 }
