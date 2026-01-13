@@ -11,8 +11,8 @@ import { AuthenticationService } from '../../../services/authentication.service'
 })
 export class BienvenidaAdminComponent {
   constructor(private router: Router, private authService: AuthenticationService) { }
-  cerrarSesion() {
-    this.authService.logout();
+  logout() {
     this.router.navigate(['/login']);
   }
 }
+

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: false,
@@ -17,17 +18,26 @@ export class LoginComponent {
       login(this.email, this.password)
       .then((cred) => {
         const uid = cred.user?.uid;
-        this.authenticationService.obtenerUsuario(uid!).subscribe((usuario: any) => {
-          console.log(usuario);
-          if (usuario.rol === 'admin') {
-            this.router.navigate(['/bienvenidaadmin']);
-          } else if (usuario.rol === 'proveedor') {
-            this.router.navigate(['/bienvenidadproveedor']);
-          } else {
-            this.router.navigate(['/bienvenidausuario']);
-          }
-        })
+        this.authenticationService.obtenerUsuario(uid!)
+          .pipe(take(1))
+          .subscribe((usuario: any) => {
+            console.log(usuario);
+            if (usuario.rol === 'admin') {
+              this.router.navigate(['/bienvenidaadmin']);
+            } else if (usuario.rol === 'proveedor') {
+              this.router.navigate(['/bienvenidadproveedor']);
+            } else {
+              this.router.navigate(['/bienvenidausuario']);
+            }
+          })
       })
+  }
+  logout() {
+    this.authenticationService.logout().then(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigate(['/login']);
+    });
   }
 
   register() {
