@@ -7,7 +7,12 @@ import { RegisterComponent } from './modules/authentication/register/register.co
 import { BienvenidaAdminComponent } from './modules/dash_board/bienvenida-admin/bienvenida-admin.component';
 import { CambiarRolComponent } from './modules/dash_board/bienvenida-admin/cambiar-rol/cambiar-rol.component';
 import { DesactivarUsuarioComponent } from './modules/dash_board/bienvenida-admin/desactivar-usuario/desactivar-usuario.component';
+import { SeleccionEmpresasComponent } from './modules/dash_board/bienvenida-usuario/seleccion-empresas/seleccion-empresas.component';
+import { ServiciosContratadosComponent } from './modules/dash_board/bienvenida-usuario/servicios-contratados/servicios-contratados.component';
+import { AgregarServiciosComponent } from './modules/dash_board/bienvenida-proveedor/agregar-servicios/agregar-servicios.component';
+import { ListadeServiciosComponent } from './modules/dash_board/bienvenida-proveedor/listade-servicios/listade-servicios.component';
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
@@ -17,8 +22,16 @@ const routes: Routes = [
       { path: 'desactivar-usuario', component: DesactivarUsuarioComponent },
     ]
   },
-  { path: "bienvenidausuario", component: BienvenidaUsuarioComponent },
-  { path: "bienvenidadproveedor", component: BienvenidaProveedorComponent },
+  
+  { path: "bienvenidausuario", component: BienvenidaUsuarioComponent, children: [
+     {path: 'seleccion-empresas', component: SeleccionEmpresasComponent},
+     {path: 'servicios-contratados', component: ServiciosContratadosComponent},
+  ] },
+
+  { path: "bienvenidadproveedor", component: BienvenidaProveedorComponent, children: [
+    {path:'agregar-servicios', component: AgregarServiciosComponent},
+    {path: 'listade-servicios', component: ListadeServiciosComponent},
+  ] },
 ];
 
 @NgModule({

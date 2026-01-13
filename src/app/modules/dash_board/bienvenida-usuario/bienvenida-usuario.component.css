@@ -1,55 +1,56 @@
-.user-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    background: #f4f6f9;
 }
 
-/* Tarjeta de bienvenida */
-.card {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background: #212529;
+    color: white;
+    padding: 20px;
 }
 
-h2 {
-  color: #2d3436;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+.brand {
+    font-weight: 600;
+    margin-bottom: 30px;
 }
 
-p {
-  color: #636e72;
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
+.sidebar nav a {
+    display: block;
+    color: #adb5bd;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: 0.2s;
 }
 
-/* Botón de cerrar sesión con estilo moderno */
-.btn-logout {
-  background-color: #ff7675;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #0d6efd;
+    color: white;
 }
 
-.btn-logout:hover {
-  background-color: #d63031;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(214, 48, 49, 0.3);
+/* Main */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.btn-logout:active {
-  transform: translateY(0);
+/* Topbar */
+.topbar {
+    background: white;
+    padding: 15px 25px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Content */
+.content {
+    padding: 25px;
 }
