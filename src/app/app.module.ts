@@ -12,7 +12,7 @@ import { DashBoardModule } from './modules/dash_board/dash-board.module';
 @NgModule({
   declarations: [
     AppComponent,
-    
+
   ],
   imports: [
     BrowserModule,

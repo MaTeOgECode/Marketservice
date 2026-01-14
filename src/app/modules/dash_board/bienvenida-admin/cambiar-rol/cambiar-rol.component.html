@@ -1,1 +1,27 @@
-<p>cambiar-rol works!</p>
+<h2>Cambiar rol de Usuarios</h2>
+<table cellpadding="5" cellspacing="0" border="1">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.email }}</td>
+            <td>
+                <select [(ngModel)]="rolSeleccionado[usuario.uid]">
+                    <option value="admin">Admin</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="proveedor">Proveedor</option>
+                </select>
+            </td>
+
+            <td>
+                <button (click)="cambiarRol(usuario.uid)">Actualizar Rol</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

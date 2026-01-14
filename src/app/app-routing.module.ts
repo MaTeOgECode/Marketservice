@@ -11,8 +11,9 @@ import { SeleccionEmpresasComponent } from './modules/dash_board/bienvenida-usua
 import { ServiciosContratadosComponent } from './modules/dash_board/bienvenida-usuario/servicios-contratados/servicios-contratados.component';
 import { AgregarServiciosComponent } from './modules/dash_board/bienvenida-proveedor/agregar-servicios/agregar-servicios.component';
 import { ListadeServiciosComponent } from './modules/dash_board/bienvenida-proveedor/listade-servicios/listade-servicios.component';
+import { authenticationGuard } from './guards/authentication.guard';
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
@@ -20,18 +21,22 @@ const routes: Routes = [
     path: 'bienvenidaadmin', component: BienvenidaAdminComponent, children: [
       { path: 'cambiar-rol', component: CambiarRolComponent },
       { path: 'desactivar-usuario', component: DesactivarUsuarioComponent },
-    ]
+    ], canActivate: [authenticationGuard], data: { rol: 'admin' }
   },
-  
-  { path: "bienvenidausuario", component: BienvenidaUsuarioComponent, children: [
-     {path: 'seleccion-empresas', component: SeleccionEmpresasComponent},
-     {path: 'servicios-contratados', component: ServiciosContratadosComponent},
-  ] },
 
-  { path: "bienvenidadproveedor", component: BienvenidaProveedorComponent, children: [
-    {path:'agregar-servicios', component: AgregarServiciosComponent},
-    {path: 'listade-servicios', component: ListadeServiciosComponent},
-  ] },
+  {
+    path: "bienvenidausuario", component: BienvenidaUsuarioComponent, children: [
+      { path: 'seleccion-empresas', component: SeleccionEmpresasComponent },
+      { path: 'servicios-contratados', component: ServiciosContratadosComponent },
+    ], canActivate: [authenticationGuard], data: { rol: 'user' }
+  },
+
+  {
+    path: "bienvenidadproveedor", component: BienvenidaProveedorComponent, children: [
+      { path: 'agregar-servicios', component: AgregarServiciosComponent },
+      { path: 'listade-servicios', component: ListadeServiciosComponent },
+    ], canActivate: [authenticationGuard], data: { rol: 'proveedor' }
+  },
 ];
 
 @NgModule({

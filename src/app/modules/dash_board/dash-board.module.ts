@@ -11,6 +11,7 @@ import { AgregarServiciosComponent } from './bienvenida-proveedor/agregar-servic
 import { ListadeServiciosComponent } from './bienvenida-proveedor/listade-servicios/listade-servicios.component';
 import { ServiciosContratadosComponent } from './bienvenida-usuario/servicios-contratados/servicios-contratados.component';
 import { SeleccionEmpresasComponent } from './bienvenida-usuario/seleccion-empresas/seleccion-empresas.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { SeleccionEmpresasComponent } from './bienvenida-usuario/seleccion-empre
     BienvenidaAdminComponent,
     CambiarRolComponent,
     DesactivarUsuarioComponent,
-  
+
     AgregarServiciosComponent,
     ListadeServiciosComponent,
     ServiciosContratadosComponent,
@@ -27,7 +28,8 @@ import { SeleccionEmpresasComponent } from './bienvenida-usuario/seleccion-empre
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class DashBoardModule { }

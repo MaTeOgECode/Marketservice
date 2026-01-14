@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { EnvironmentInjector } from '@angular/core';
 import { UserService } from './user.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,8 @@ export class AuthenticationService {
   }
   obtenerUsuario(uid: string) {
     return this.userService.obtenerUsuario(uid);
+  }
+  getAuthState() {
+    return this.authentication.authState;
   }
 }

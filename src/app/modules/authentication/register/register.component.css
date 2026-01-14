@@ -1,4 +1,3 @@
-/* Contenedor principal */
 div {
   max-width: 400px;
   margin: 50px auto;
@@ -20,7 +19,6 @@ p {
   color: #555;
 }
 
-/* Grupos de formulario */
 .form-group {
   margin-bottom: 15px;
 }
@@ -46,7 +44,6 @@ select:focus {
   border-color: #007bff;
 }
 
-/* Caja proveedor */
 .proveedor-box {
   margin-top: 15px;
   padding: 15px;
@@ -55,7 +52,6 @@ select:focus {
   border-radius: 6px;
 }
 
-/* Botones */
 .actions {
   display: flex;
   flex-direction: column;

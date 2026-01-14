@@ -1,36 +1,58 @@
+/* Layout */
 .admin-layout {
     display: flex;
     height: 100vh;
-    background: #f4f6f9;
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 240px;
-    background: #212529;
-    color: white;
+    width: 250px;
+    background: linear-gradient(180deg, #212529, #1a1e21);
+    color: #fff;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .brand {
     font-weight: 600;
-    margin-bottom: 30px;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
 }
 
-.sidebar nav a {
-    display: block;
+/* Menu */
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     color: #adb5bd;
     text-decoration: none;
-    padding: 10px 12px;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    transition: 0.2s;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.sidebar nav a:hover,
-.sidebar nav a.active {
+.menu a i {
+    font-size: 1.1rem;
+}
+
+.menu a:hover {
+    background: rgba(13, 110, 253, 0.15);
+    color: #ffffff;
+}
+
+.menu a.active {
     background: #0d6efd;
-    color: white;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
 }
 
 /* Main */
@@ -42,15 +64,41 @@
 
 /* Topbar */
 .topbar {
-    background: white;
-    padding: 15px 25px;
+    background: #ffffff;
+    padding: 16px 25px;
     border-bottom: 1px solid #dee2e6;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.topbar .title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Logout button */
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid #dc3545;
+    background: transparent;
+    color: #dc3545;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: #dc3545;
+    color: white;
+}
+
 /* Content */
 .content {
     padding: 25px;
+    overflow-y: auto;
 }
