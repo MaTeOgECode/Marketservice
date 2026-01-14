@@ -10,24 +10,33 @@ export const authenticationGuard: CanActivateFn = (route) => {
   return authService.getAuthState().pipe(
     take(1),
     switchMap(user => {
+      // 1. Si ni siquiera está logueado, al login.
       if (!user) {
         router.navigate(['/login']);
         return of(false);
       }
 
-      // Si hay usuario, verificamos su rol en Firestore
+      // 2. Si está logueado, obtenemos su perfil de la base de datos
       return authService.obtenerUsuario(user.uid).pipe(
         take(1),
         map((usuario: any) => {
-          const rolEsperado = route.data['rol']; // Obtenemos el rol desde la ruta
+          const rolRequerido = route.data['rol'];
 
-          if (usuario && usuario.rol === rolEsperado) {
+          // 3. ¿Tiene el rol necesario para esta ruta?
+          if (usuario && usuario.rol === rolRequerido) {
             return true;
-          } else {
-            // Si el rol no coincide, redirigir a su pantalla de bienvenida correcta
-            router.navigate(['/login']);
-            return false;
           }
+
+          // 4. Si tiene un rol diferente, lo mandamos a SU página en lugar de al login
+          if (usuario.rol === 'admin') {
+            router.navigate(['/bienvenidaadmin']);
+          } else if (usuario.rol === 'proveedor') {
+            router.navigate(['/bienvenidadproveedor']);
+          } else {
+            router.navigate(['/bienvenidausuario']);
+          }
+
+          return false;
         })
       );
     })

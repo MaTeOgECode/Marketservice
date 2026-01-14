@@ -25,7 +25,7 @@ export class LoginComponent {
             if (usuario.rol === 'admin') {
               this.router.navigate(['/bienvenidaadmin']);
             } else if (usuario.rol === 'proveedor') {
-              this.router.navigate(['/bienvenidadproveedor']);
+              this.router.navigate(['/bienvenidaproveedor']);
             } else {
               this.router.navigate(['/bienvenidausuario']);
             }
