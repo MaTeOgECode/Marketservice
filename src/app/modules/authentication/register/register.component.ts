@@ -15,7 +15,7 @@ export class RegisterComponent {
   password = '';
   rol: 'user' | 'proveedor' = 'user';
 
-  // DATOS PROVEEDOR
+  // 🔹 DATOS SOLO PARA PROVEEDOR
   nombre = '';
   especialidad = '';
   ubicacion = '';
@@ -25,10 +25,11 @@ export class RegisterComponent {
     private authService: AuthenticationService,
     private userService: UserService,
     private router: Router
-  ) { }
+  ) {}
 
   registrar() {
 
+    // ✅ Validación solo si es proveedor
     if (this.rol === 'proveedor') {
       if (!this.nombre || !this.especialidad || !this.ubicacion || !this.contacto) {
         alert('Completa todos los datos del proveedor');
@@ -40,19 +41,17 @@ export class RegisterComponent {
       .then((cred: any) => {
         const uid = cred.user.uid;
 
-        return this.userService.crearUsuario(uid, this.email, this.rol)
-          .then(() => {
-            if (this.rol === 'proveedor') {
-              return this.userService.crearProveedor(uid, {
-                nombre: this.nombre,
-                especialidad: this.especialidad,
-                ubicacion: this.ubicacion,
-                contacto: this.contacto,
-                email: this.email
-              });
-            }
-            return Promise.resolve(); // 🔑 evita TS7030
-          });
+        // ✅ TODO SE GUARDA EN LA MISMA COLECCIÓN "usuarios"
+        return this.userService.crearUsuario(uid, {
+          email: this.email,
+          rol: this.rol,
+          ...(this.rol === 'proveedor' && {
+            nombre: this.nombre,
+            especialidad: this.especialidad,
+            ubicacion: this.ubicacion,
+            contacto: this.contacto
+          })
+        });
       })
       .then(() => {
         this.router.navigate(['/login']);

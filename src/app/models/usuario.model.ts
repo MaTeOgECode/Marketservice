@@ -1,6 +1,6 @@
 export interface Usuario {
     uid: string;
     email: string;
-    rol: 'admin' | 'usuario' | 'proveedor';
+    rol: 'user' | 'proveedor' | 'admin';
     Activo: boolean;
 }

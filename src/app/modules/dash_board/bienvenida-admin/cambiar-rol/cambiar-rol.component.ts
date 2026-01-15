@@ -1,7 +1,7 @@
-import { Component, ChangeDetectorRef, OnInit, EnvironmentInjector } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 import { Usuario } from '../../../../models/usuario.model';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 @Component({
   selector: 'app-cambiar-rol',
   standalone: false,
@@ -11,19 +11,21 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class CambiarRolComponent implements OnInit {
 
   usuarios: Usuario[] = [];
-  rolSeleccionado: { [uid: string]: string } = {};
 
-  constructor(private userService: UserService,
-    private cdr: ChangeDetectorRef,
-    private injector: EnvironmentInjector,
-    private firestore: AngularFirestore
-  ) { }
+  // 🔹 Tipado correcto del rol
+  rolSeleccionado: {
+    [uid: string]: 'user' | 'proveedor' | 'admin'
+  } = {};
+
+  constructor(
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.userService.obtenerTodosLosUsuarios().subscribe((usuarios: Usuario[]) => {
-      console.log(usuarios);
 
-      usuarios.forEach((usuario: Usuario) => {
+      usuarios.forEach(usuario => {
         this.rolSeleccionado[usuario.uid] = usuario.rol;
       });
 
@@ -31,13 +33,12 @@ export class CambiarRolComponent implements OnInit {
       this.cdr.detectChanges();
     });
   }
+
   cambiarRol(uid: string): void {
     const rolNuevo = this.rolSeleccionado[uid];
-    this.userService.cambiarRol(uid, rolNuevo).then(() => {
-      console.log('Rol actualizado');
-    });
+
+    this.userService.cambiarRol(uid, rolNuevo)
+      .then(() => console.log('Rol actualizado correctamente'))
+      .catch(err => console.error('Error al cambiar rol', err));
   }
-
-
 }
-

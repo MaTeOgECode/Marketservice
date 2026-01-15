@@ -32,7 +32,7 @@ const routes: Routes = [
   },
 
   {
-    path: "bienvenidadproveedor", component: BienvenidaProveedorComponent, children: [
+    path: "bienvenidaproveedor", component: BienvenidaProveedorComponent, children: [
       { path: 'agregar-servicios', component: AgregarServiciosComponent },
       { path: 'listade-servicios', component: ListadeServiciosComponent },
     ], canActivate: [authenticationGuard], data: { rol: 'proveedor' }
