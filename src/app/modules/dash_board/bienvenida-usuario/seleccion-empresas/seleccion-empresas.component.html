@@ -1,1 +1,43 @@
-<p>Servicios</p>
+<div class="container-servicios">
+  <div class="header">
+    <h1>Servicios Disponibles</h1>
+    <p>Explora y contrata los mejores servicios para tu necesidad.</p>
+  </div>
+
+  <div class="grid-servicios">
+    <div class="card-servicio" *ngFor="let servicio of serviciosDisponibles">
+      
+      <div class="image-container">
+        <img 
+          [src]="servicio.imagen || 'assets/placeholder-service.jpg'" 
+          [alt]="servicio.nombre"
+          (error)="servicio.imagen = 'https://via.placeholder.com/500x300?text=Imagen+No+Disponible'"
+        >
+        <span class="badge-precio">${{ servicio.precio }}</span>
+      </div>
+      
+      <div class="card-body">
+        <div class="info-meta">
+          <span class="categoria">{{ servicio.categoria }}</span>
+        </div>
+        
+        <h3>{{ servicio.nombre }}</h3>
+        <p class="descripcion">{{ servicio.descripcion }}</p>
+        
+        <div class="card-footer">
+          <button 
+            class="btn-contratar" 
+            (click)="contratar(servicio)"
+            title="Haz clic para contratar este servicio">
+            Contratar Ahora
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div *ngIf="serviciosDisponibles.length === 0" class="no-servicios">
+    <p>No hay servicios disponibles en este momento. Vuelve más tarde.</p>
+  </div>
+</div>

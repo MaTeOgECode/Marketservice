@@ -1,1 +1,39 @@
-<p>agregar-servicios works!</p>
+<div class="container-form">
+  <div class="card-form">
+    <h2>Registrar Nuevo Servicio</h2>
+    <p>Completa la información para ofrecer tu servicio a los clientes.</p>
+    
+    <div class="form-group">
+      <label>Nombre del Servicio</label>
+      <input type="text" [(ngModel)]="nombreServicio" placeholder="Ej: Mantenimiento de Jardines">
+    </div>
+
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea [(ngModel)]="descripcionServicio" placeholder="Describe brevemente qué incluye..."></textarea>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>Precio ($)</label>
+        <input type="number" [(ngModel)]="precioServicio">
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select [(ngModel)]="categoriaServicio">
+          <option value="">Seleccione...</option>
+          <option value="Hogar">Hogar</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Salud">Salud</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+  <label>URL de la Imagen</label>
+  <input type="text" [(ngModel)]="urlImagen" placeholder="Pegue la dirección de la imagen aquí">
+   </div>
+
+    <button class="btn-save" (click)="guardarServicio()">Publicar Servicio</button>
+  </div>
+</div>

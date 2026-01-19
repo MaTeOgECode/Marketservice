@@ -19,7 +19,7 @@ export class UserService {
     uid: string,
     data: {
       email: string;
-      rol: 'user' | 'proveedor' | 'admin';
+      rol: 'usuario' | 'proveedor' | 'admin';
       nombre?: string;
       especialidad?: string;
       ubicacion?: string;
@@ -57,7 +57,7 @@ export class UserService {
   }
 
   // ✅ CAMBIAR ROL
-  cambiarRol(uid: string, rolNuevo: 'user' | 'proveedor' | 'admin') {
+  cambiarRol(uid: string, rolNuevo: 'usuario' | 'proveedor' | 'admin') {
     return runInInjectionContext(this.injector, () => {
       return this.firestore.collection('usuarios').doc(uid).update({
         rol: rolNuevo
@@ -68,7 +68,12 @@ export class UserService {
   // ✅ ELIMINAR USUARIO
   eliminarUsuario(uid: string) {
     return runInInjectionContext(this.injector, () => {
-      return this.firestore.collection('usuarios').doc(uid).delete();
+      return this.firestore.collection('usuario').doc(uid).delete();
     });
   }
+  obtenerProveedores(): Observable<Usuario[]> {
+  return this.firestore.collection<Usuario>('usuarios', ref => 
+    ref.where('rol', '==', 'proveedor').where('activo', '==', true)
+  ).valueChanges({ idField: 'uid' });
+}
 }

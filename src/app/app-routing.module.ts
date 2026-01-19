@@ -28,7 +28,7 @@ const routes: Routes = [
     path: "bienvenidausuario", component: BienvenidaUsuarioComponent, children: [
       { path: 'seleccion-empresas', component: SeleccionEmpresasComponent },
       { path: 'servicios-contratados', component: ServiciosContratadosComponent },
-    ], canActivate: [authenticationGuard], data: { rol: 'user' }
+    ], canActivate: [authenticationGuard], data: { rol: 'usuario' }
   },
 
   {

@@ -9,6 +9,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { DashBoardModule } from './modules/dash_board/dash-board.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { DashBoardModule } from './modules/dash_board/dash-board.module';
     AngularFireAuthModule,
     AuthenticationModule,
     DashBoardModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

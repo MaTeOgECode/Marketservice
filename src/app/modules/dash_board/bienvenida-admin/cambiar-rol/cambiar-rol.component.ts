@@ -14,7 +14,7 @@ export class CambiarRolComponent implements OnInit {
 
   // 🔹 Tipado correcto del rol
   rolSeleccionado: {
-    [uid: string]: 'user' | 'proveedor' | 'admin'
+    [uid: string]: 'usuario' | 'proveedor' | 'admin'
   } = {};
 
   constructor(

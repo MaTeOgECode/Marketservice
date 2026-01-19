@@ -13,7 +13,7 @@ export class RegisterComponent {
 
   email = '';
   password = '';
-  rol: 'user' | 'proveedor' = 'user';
+  rol: 'usuario' | 'proveedor' = 'usuario';
 
   // 🔹 DATOS SOLO PARA PROVEEDOR
   nombre = '';

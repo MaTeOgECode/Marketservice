@@ -22,7 +22,7 @@ export class AuthenticationService {
       // ✅ Firma correcta
       await this.userService.crearUsuario(uid!, {
         email,
-        rol: 'user'
+        rol: 'usuario'
       });
 
       return credenciales;
