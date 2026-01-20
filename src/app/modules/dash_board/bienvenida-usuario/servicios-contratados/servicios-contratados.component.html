@@ -1,1 +1,48 @@
-<p>servicios-contratados works!</p>
+<div class="container-historial">
+  <h2>Mi Historial de Servicios</h2>
+
+  <div class="tabla-contenedor" *ngIf="misContrataciones.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>ID Servicio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of misContrataciones">
+          <td>{{ item.fechaContratacion?.toDate() | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ item.servicioId }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'badge-pendiente': item.estado === 'pendiente',
+              'badge-cancelado': item.estado === 'cancelado'
+            }">
+              {{ item.estado | uppercase }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="item.estado === 'pendiente'" 
+                    class="btn-cancelar" 
+                    (click)="cancelar(item.id)">
+              Cancelar Servicio
+            </button>
+            
+            <button class="btn-eliminar" 
+                    [disabled]="item.estado === 'pendiente'"
+                    [title]="item.estado === 'pendiente' ? 'No puedes eliminar un servicio pendiente' : 'Eliminar registro'"
+                    (click)="eliminar(item.id)">
+              Eliminar Historial
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="misContrataciones.length === 0" class="empty-state">
+    <p>Aún no has contratado ningún servicio.</p>
+  </div>
+</div>

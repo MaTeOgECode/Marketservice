@@ -1,1 +1,69 @@
-<p>listade-servicios works!</p>
+<div class="container-lista">
+  <h2>Mis Servicios Publicados</h2>
+
+  <div class="grid-servicios-pro">
+    <div class="card-admin" *ngFor="let s of serviciosProveedor">
+      <div class="img-preview">
+        <img [src]="s.imagen" alt="Vista previa">
+      </div>
+      <div class="info">
+        <h3>{{ s.nombre }}</h3>
+        <p class="precio">${{ s.precio }}</p>
+        <div class="status-box" [ngClass]="s.totalContratos > 0 ? 'contratado' : 'libre'">
+          {{ s.totalContratos > 0 ? 'CONTRATADO (' + s.totalContratos + ')' : 'Sin contratos' }}
+        </div>
+      </div>
+      <div class="acciones">
+        <button class="btn-edit" (click)="abrirModal(s)">Editar</button>
+        <button class="btn-del" (click)="eliminar(s.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Editar Servicio</h3>
+        <button class="close-x" (click)="cerrarModal()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="servicioEdicion.nombre">
+        </div>
+
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="servicioEdicion.descripcion"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label>Precio</label>
+            <input type="number" [(ngModel)]="servicioEdicion.precio">
+          </div>
+          <div class="form-group">
+            <label>Categoría</label>
+            <select [(ngModel)]="servicioEdicion.categoria">
+              <option value="Hogar">Hogar</option>
+              <option value="Tecnología">Tecnología</option>
+              <option value="Salud">Salud</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>URL de Imagen</label>
+          <input type="text" [(ngModel)]="servicioEdicion.imagen">
+          <img [src]="servicioEdicion.imagen" class="mini-preview" alt="Previsualización">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-save" (click)="guardarCambios()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

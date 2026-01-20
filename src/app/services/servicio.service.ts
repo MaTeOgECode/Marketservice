@@ -40,4 +40,63 @@ export class ServicioService {
       return this.firestore.collection('servicios_contratados').add(contratacion);
     });
   }
+  // En servicio.service.ts
+
+// Obtener servicios contratados por el cliente actual
+obtenerContratacionesPorCliente(clienteId: string): Observable<any[]> {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection('servicios_contratados', ref => 
+      ref.where('clienteId', '==', clienteId)
+    ).valueChanges({ idField: 'id' });
+  });
+}
+
+// Cambiar estado a 'cancelado'
+cancelarContratacion(id: string) {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection('servicios_contratados').doc(id).update({
+      estado: 'cancelado'
+    });
+  });
+}
+
+// Borrar el registro del historial
+eliminarContratacion(id: string) {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection('servicios_contratados').doc(id).delete();
+  });
+}
+// servicio.service.ts
+
+// Obtener solo los servicios creados por el proveedor logueado
+obtenerServiciosPorProveedor(proveedorId: string): Observable<Serviciomodels[]> {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection<Serviciomodels>('servicios', ref => 
+      ref.where('proveedorId', '==', proveedorId)
+    ).valueChanges({ idField: 'id' });
+  });
+}
+
+// Actualizar un servicio existente
+actualizarServicio(id: string, data: Partial<Serviciomodels>) {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection('servicios').doc(id).update(data);
+  });
+}
+
+// Eliminar servicio
+eliminarServicio(id: string) {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection('servicios').doc(id).delete();
+  });
+}
+
+// Verificar si un servicio tiene contratos (para mostrar el estado al proveedor)
+verificarContratos(servicioId: string): Observable<any[]> {
+  return runInInjectionContext(this.injector, () => {
+    return this.firestore.collection('servicios_contratados', ref => 
+      ref.where('servicioId', '==', servicioId)
+    ).valueChanges();
+  });
+}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // 1. Importar ChangeDetectorRef
 import { ServicioService } from '../../../../services/servicio.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Serviciomodels } from '../../../../models/serviciomodels';
@@ -15,7 +15,8 @@ export class SeleccionEmpresasComponent implements OnInit {
 
   constructor(
     private servicioService: ServicioService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private cdr: ChangeDetectorRef // 2. Inyectar el detector
   ) {}
 
   ngOnInit(): void {
@@ -25,15 +26,17 @@ export class SeleccionEmpresasComponent implements OnInit {
   cargarServicios() {
     this.servicioService.obtenerTodosLosServicios().subscribe(data => {
       this.serviciosDisponibles = data;
+      // 3. Forzar la actualización de la vista al recibir los datos
+      this.cdr.detectChanges(); 
+    }, error => {
+      console.error('Error al cargar servicios:', error);
     });
   }
 
   async contratar(servicio: Serviciomodels) {
-    // 1. Mensaje de confirmación previo
-    const mensaje = `¿Estás seguro de que deseas contratar el servicio: "${servicio.nombre}" por $${servicio.precio}?`;
+    const mensaje = `¿Estás seguro de que deseas contratar el servicio: "${servicio.nombre}"?`;
     
     if (confirm(mensaje)) {
-      // Si el usuario hace clic en "Aceptar"
       const user = await this.afAuth.currentUser;
 
       if (!user) {
@@ -44,17 +47,13 @@ export class SeleccionEmpresasComponent implements OnInit {
       if (servicio.id) {
         this.servicioService.contratarServicio(user.uid, servicio.id, servicio.proveedorId)
           .then(() => {
-            alert(`¡Contratación exitosa! Te has suscrito a: ${servicio.nombre}`);
-            // Como solicitaste, no hay navegación: el usuario se queda aquí.
+            alert(`¡Felicidades! Has contratado: ${servicio.nombre}`);
           })
           .catch(error => {
             console.error('Error en la contratación:', error);
-            alert('Lo sentimos, no se pudo procesar la contratación en este momento.');
+            alert('No se pudo procesar la contratación.');
           });
       }
-    } else {
-      // Si el usuario hace clic en "Cancelar"
-      console.log('Contratación cancelada por el usuario');
     }
   }
 }
