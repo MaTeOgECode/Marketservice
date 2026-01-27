@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     ListadeServiciosComponent,
     ServiciosContratadosComponent,
     SeleccionEmpresasComponent,
+   
   ],
   imports: [
     CommonModule,

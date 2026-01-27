@@ -1,19 +1,26 @@
 <div class="container-lista">
-  <h2>Mis Servicios Publicados</h2>
+  <div class="header-section">
+    <h2>Mis Servicios Publicados</h2>
+    <p>Gestiona y edita tus ofertas actuales.</p>
+  </div>
 
   <div class="grid-servicios-pro">
     <div class="card-admin" *ngFor="let s of serviciosProveedor">
       <div class="img-preview">
-        <img [src]="s.imagen" alt="Vista previa">
-      </div>
-      <div class="info">
-        <h3>{{ s.nombre }}</h3>
-        <p class="precio">${{ s.precio }}</p>
-        <div class="status-box" [ngClass]="s.totalContratos > 0 ? 'contratado' : 'libre'">
-          {{ s.totalContratos > 0 ? 'CONTRATADO (' + s.totalContratos + ')' : 'Sin contratos' }}
+        <img [src]="s.imagen" alt="Servicio">
+        <div class="badge-status" [ngClass]="s.totalContratos > 0 ? 'contratado' : 'libre'">
+          {{ s.totalContratos > 0 ? 'CONTRATADO' : 'DISPONIBLE' }}
         </div>
       </div>
-      <div class="acciones">
+      
+      <div class="info-content">
+        <span class="categoria-tag">{{ s.categoria }}</span>
+        <h3>{{ s.nombre }}</h3>
+        <p class="descripcion-corta">{{ s.descripcion }}</p>
+        <p class="precio-tag"><strong>Bs. {{ s.precio }}</strong></p>
+      </div>
+
+      <div class="acciones-footer">
         <button class="btn-edit" (click)="abrirModal(s)">Editar</button>
         <button class="btn-del" (click)="eliminar(s.id)">Eliminar</button>
       </div>
@@ -24,45 +31,49 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3>Editar Servicio</h3>
-        <button class="close-x" (click)="cerrarModal()">&times;</button>
+        <button class="btn-close" (click)="cerrarModal()">&times;</button>
       </div>
 
       <div class="modal-body">
         <div class="form-group">
-          <label>Nombre</label>
+          <label>Nombre del Servicio</label>
           <input type="text" [(ngModel)]="servicioEdicion.nombre">
         </div>
 
         <div class="form-group">
           <label>Descripción</label>
-          <textarea [(ngModel)]="servicioEdicion.descripcion"></textarea>
+          <textarea [(ngModel)]="servicioEdicion.descripcion" rows="3"></textarea>
         </div>
 
-        <div class="row">
+        <div class="form-row">
           <div class="form-group">
-            <label>Precio</label>
+            <label>Precio (Bs)</label>
             <input type="number" [(ngModel)]="servicioEdicion.precio">
           </div>
           <div class="form-group">
             <label>Categoría</label>
             <select [(ngModel)]="servicioEdicion.categoria">
-              <option value="Hogar">Hogar</option>
-              <option value="Tecnología">Tecnología</option>
-              <option value="Salud">Salud</option>
+              <option *ngFor="let cat of listaCategorias" [value]="cat.nombre">
+                {{ cat.nombre }}
+              </option>
             </select>
           </div>
         </div>
 
         <div class="form-group">
-          <label>URL de Imagen</label>
-          <input type="text" [(ngModel)]="servicioEdicion.imagen">
-          <img [src]="servicioEdicion.imagen" class="mini-preview" alt="Previsualización">
+          <label>Imagen del Servicio</label>
+          <input type="file" (change)="onFileSelected($event)" accept="image/*">
+          <div class="mini-preview" *ngIf="servicioEdicion.imagen">
+            <img [src]="servicioEdicion.imagen" alt="Vista previa">
+          </div>
         </div>
       </div>
 
       <div class="modal-footer">
         <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
-        <button class="btn-save" (click)="guardarCambios()">Guardar Cambios</button>
+        <button class="btn-save" (click)="guardarCambios()" [disabled]="cargando">
+          {{ cargando ? 'Guardando...' : 'Guardar Cambios' }}
+        </button>
       </div>
     </div>
   </div>

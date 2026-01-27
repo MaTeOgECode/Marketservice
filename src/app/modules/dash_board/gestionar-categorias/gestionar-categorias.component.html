@@ -1,0 +1,48 @@
+<div class="container-admin">
+  <div class="header-cat">
+    <h2>Gestionar Categorías del Sistema</h2>
+    <p>Agregue o elimine las categorías que los proveedores usarán para sus servicios.</p>
+  </div>
+
+  <div class="card-input">
+    <div class="form-group">
+      <label for="nombre">Nombre de la Categoría</label>
+      <div class="input-wrapper">
+        <input 
+          id="nombre"
+          type="text" 
+          [(ngModel)]="nombreCat" 
+          placeholder="Ej: Carpintería, Limpieza, Plomería..."
+          (keyup.enter)="agregar()"
+        >
+        <button (click)="agregar()" class="btn-add" [disabled]="!nombreCat.trim()">
+          Agregar Categoría
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Nombre de Categoría</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cat of categorias">
+          <td>{{ cat.nombre }}</td>
+          <td class="text-center">
+            <button (click)="borrar(cat.id)" class="btn-delete">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="categorias.length === 0">
+          <td colspan="2" class="empty-msg">No hay categorías registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

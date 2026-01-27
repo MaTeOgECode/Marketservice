@@ -7,3 +7,24 @@ input, textarea, select { padding: 10px; border: 1px solid #ddd; border-radius: 
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .btn-save { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
 .btn-save:hover { background: #0056b3; }
+.progress-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+
+.img-preview-mini img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}

@@ -15,25 +15,41 @@
 
     <div class="row">
       <div class="form-group">
-        <label>Precio ($)</label>
+        <label>Precio (Bs)</label>
         <input type="number" [(ngModel)]="precioServicio">
       </div>
+      
       <div class="form-group">
         <label>Categoría</label>
         <select [(ngModel)]="categoriaServicio">
-          <option value="">Seleccione...</option>
-          <option value="Hogar">Hogar</option>
-          <option value="Tecnología">Tecnología</option>
-          <option value="Salud">Salud</option>
+          <option value="" disabled selected>Seleccione una categoría...</option>
+          <option *ngFor="let cat of listaCategorias" [value]="cat.nombre">
+            {{ cat.nombre }}
+          </option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
-  <label>URL de la Imagen</label>
-  <input type="text" [(ngModel)]="urlImagen" placeholder="Pegue la dirección de la imagen aquí">
-   </div>
+      <label>Foto del Servicio (Subir archivo)</label>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input">
+      
+      <div class="progress-container" *ngIf="porcentajeSubida > 0">
+        <div class="progress-bar" [style.width.%]="porcentajeSubida"></div>
+        <small>{{ porcentajeSubida | number:'1.0-0' }}% subido</small>
+      </div>
 
-    <button class="btn-save" (click)="guardarServicio()">Publicar Servicio</button>
+      <p style="margin: 10px 0; font-size: 12px; color: #888;">O pegue una URL externa:</p>
+      <input type="text" [(ngModel)]="urlImagen" placeholder="URL de la imagen">
+      
+      <div class="img-preview-mini" *ngIf="urlImagen">
+        <p style="font-size: 12px; color: #666;">Vista previa:</p>
+        <img [src]="urlImagen" alt="Vista previa">
+      </div>
+    </div>
+
+    <button class="btn-save" (click)="guardarServicio()" [disabled]="cargandoImagen">
+      {{ cargandoImagen ? 'Subiendo imagen...' : 'Publicar Servicio' }}
+    </button>
   </div>
 </div>

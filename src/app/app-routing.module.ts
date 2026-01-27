@@ -12,6 +12,7 @@ import { ServiciosContratadosComponent } from './modules/dash_board/bienvenida-u
 import { AgregarServiciosComponent } from './modules/dash_board/bienvenida-proveedor/agregar-servicios/agregar-servicios.component';
 import { ListadeServiciosComponent } from './modules/dash_board/bienvenida-proveedor/listade-servicios/listade-servicios.component';
 import { authenticationGuard } from './guards/authentication.guard';
+import { GestionarCategoriaComponent } from './modules/dash_board/gestionar-categorias/gestionar-categorias.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     path: 'bienvenidaadmin', component: BienvenidaAdminComponent, children: [
       { path: 'cambiar-rol', component: CambiarRolComponent },
       { path: 'desactivar-usuario', component: DesactivarUsuarioComponent },
+      { path: 'gestionar-categorias', component: GestionarCategoriaComponent },
     ], canActivate: [authenticationGuard], data: { rol: 'admin' }
   },
 

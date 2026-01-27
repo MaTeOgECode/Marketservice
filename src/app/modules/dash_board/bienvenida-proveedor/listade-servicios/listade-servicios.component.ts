@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ServicioService } from '../../../../services/servicio.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Serviciomodels } from '../../../../models/serviciomodels';
+import { CategoriaService } from '../../../../services/categoria.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listade-servicios',
@@ -11,39 +13,48 @@ import { Serviciomodels } from '../../../../models/serviciomodels';
 })
 export class ListadeServiciosComponent implements OnInit {
   serviciosProveedor: any[] = [];
+  listaCategorias: any[] = [];
   
-  // Variables para el Modal
   mostrarModal: boolean = false;
   servicioEdicion: any = {}; 
+  archivoNuevo: any = null;
+  cargando: boolean = false;
 
   constructor(
     private servicioService: ServicioService,
     private afAuth: AngularFireAuth,
+    private categoriaService: CategoriaService,
+    private storage: AngularFireStorage,
     private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
+    // Cargar categorías para el select del modal
+    this.categoriaService.obtenerCategorias().subscribe(cats => {
+      this.listaCategorias = cats;
+    });
+
     const user = await this.afAuth.currentUser;
     if (user) {
       this.servicioService.obtenerServiciosPorProveedor(user.uid).subscribe(servicios => {
         this.serviciosProveedor = servicios;
-        
-        // Verificar contratos para cada servicio
+        // Verificamos contratos para el badge de "Disponible/Contratado"
         this.serviciosProveedor.forEach(s => {
           this.servicioService.verificarContratos(s.id).subscribe(contratos => {
             s.totalContratos = contratos.length;
             this.cdr.detectChanges();
           });
         });
-        this.cdr.detectChanges();
       });
     }
   }
 
-  // Abrir modal y clonar los datos para no editar el original antes de guardar
+  // Abrir el modal con los datos del servicio seleccionado
   abrirModal(servicio: any) {
     this.servicioEdicion = { ...servicio }; 
+    this.archivoNuevo = null;
     this.mostrarModal = true;
+    this.cdr.detectChanges();
   }
 
   cerrarModal() {
@@ -51,20 +62,50 @@ export class ListadeServiciosComponent implements OnInit {
     this.servicioEdicion = {};
   }
 
-  async guardarCambios() {
-    if (this.servicioEdicion.id) {
-      const { id, totalContratos, ...datosAActualizar } = this.servicioEdicion;
-      
-      await this.servicioService.actualizarServicio(id, datosAActualizar);
-      alert('Servicio actualizado correctamente');
-      this.cerrarModal();
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.archivoNuevo = file;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.servicioEdicion.imagen = e.target.result;
+        this.cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
     }
   }
 
+  async guardarCambios() {
+    this.cargando = true;
+    if (this.archivoNuevo) {
+      const path = `servicios/${Date.now()}_${this.archivoNuevo.name}`;
+      const ref = this.storage.ref(path);
+      const task = this.storage.upload(path, this.archivoNuevo);
+
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          ref.getDownloadURL().subscribe(async (url) => {
+            this.servicioEdicion.imagen = url;
+            await this.ejecutarActualizacion();
+          });
+        })
+      ).subscribe();
+    } else {
+      await this.ejecutarActualizacion();
+    }
+  }
+
+  async ejecutarActualizacion() {
+    const { id, totalContratos, ...datos } = this.servicioEdicion;
+    await this.servicioService.actualizarServicio(id, datos);
+    alert('¡Servicio actualizado!');
+    this.cargando = false;
+    this.cerrarModal();
+  }
+
   async eliminar(id: string) {
-    if (confirm('¿Estás seguro de eliminar este servicio?')) {
+    if (confirm('¿Deseas eliminar este servicio permanentemente?')) {
       await this.servicioService.eliminarServicio(id);
-      alert('Servicio eliminado.');
     }
   }
 }
