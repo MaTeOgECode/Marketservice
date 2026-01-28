@@ -99,4 +99,51 @@ verificarContratos(servicioId: string): Observable<any[]> {
     ).valueChanges();
   });
 }
+// servicio.service.ts
+
+async completarContratacion(contratoId: string, servicioId: string, estrellas: number) {
+  // Obtenemos la instancia pura de Firestore para evitar errores de inyección de Angular
+  const db = this.firestore.firestore;
+
+  try {
+    // 1. Actualizar el documento del contrato en servicios_contratados
+    const contratoRef = db.collection('servicios_contratados').doc(contratoId);
+    await contratoRef.update({
+      estado: 'completado',
+      calificacion: estrellas,
+      fechaFinalizado: new Date()
+    });
+
+    // 2. Recalcular el promedio solo si el usuario calificó
+    if (estrellas > 0 && servicioId) {
+      // Consulta directa al SDK de Firebase
+      const snapshot = await db.collection('servicios_contratados')
+        .where('servicioId', '==', servicioId)
+        .where('estado', '==', 'completado')
+        .get();
+
+      if (!snapshot.empty) {
+        const calificaciones = snapshot.docs
+          .map(doc => doc.data()['calificacion'])
+          .filter(c => typeof c === 'number' && c > 0);
+
+        const totalVotos = calificaciones.length;
+        const suma = calificaciones.reduce((a, b) => a + b, 0);
+        const promedio = suma / totalVotos;
+
+        // Actualizar el documento del servicio original en la colección 'servicios'
+        await db.collection('servicios').doc(servicioId).update({
+          promedioEstrellas: Number(promedio.toFixed(1)),
+          totalVotos: totalVotos
+        });
+      }
+    }
+    return true;
+  } catch (error) {
+    console.error("Error crítico en la base de datos:", error);
+    throw error;
+  }
+}
+
+
 }

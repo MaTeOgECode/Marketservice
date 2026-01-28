@@ -18,16 +18,23 @@
           <td>
             <span class="badge" [ngClass]="{
               'badge-pendiente': item.estado === 'pendiente',
-              'badge-cancelado': item.estado === 'cancelado'
+              'badge-cancelado': item.estado === 'cancelado',
+              'badge-completado': item.estado === 'completado'
             }">
               {{ item.estado | uppercase }}
             </span>
           </td>
           <td>
             <button *ngIf="item.estado === 'pendiente'" 
+                    class="btn-completar" 
+                    (click)="abrirModalCompletar(item, $event)">
+              Marcar Completado
+            </button>
+
+            <button *ngIf="item.estado === 'pendiente'" 
                     class="btn-cancelar" 
                     (click)="cancelar(item.id)">
-              Cancelar Servicio
+              Cancelar
             </button>
             
             <button class="btn-eliminar" 
@@ -42,7 +49,37 @@
     </table>
   </div>
 
+  <div class="modal-overlay" *ngIf="mostrarModalResena">
+    <div class="modal-resena">
+      <div class="modal-header-icon">✅</div>
+      <h3>¿Servicio Finalizado?</h3>
+      <p>Califica el trabajo realizado para ayudar a otros usuarios.</p>
+      
+      <div class="stars-container">
+  <span *ngFor="let star of [1,2,3,4,5]" 
+        (click)="setRating(star); $event.stopPropagation()" 
+        (mouseenter)="hoverRating = star"
+        (mouseleave)="hoverRating = 0"
+        [class.filled]="star <= (hoverRating || puntuacion)"
+        class="star-item">
+    ★
+  </span>
+</div>
+<p class="rating-text" *ngIf="puntuacion > 0">Has seleccionado: {{ puntuacion }} estrellas</p>
+
+      <div class="modal-buttons">
+        <button class="btn-confirm" (click)="confirmarCompletado()">
+          {{ puntuacion > 0 ? 'Enviar Calificación y Finalizar' : 'Finalizar sin calificar' }}
+        </button>
+        <button type="button" class="btn-modal-cancel" (click)="cerrarModal()">
+  Regresar
+</button>
+      </div>
+    </div>
+  </div>
+
   <div *ngIf="misContrataciones.length === 0" class="empty-state">
+    <div class="empty-icon">📂</div>
     <p>Aún no has contratado ningún servicio.</p>
   </div>
 </div>
