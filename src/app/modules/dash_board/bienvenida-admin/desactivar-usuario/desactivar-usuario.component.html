@@ -1,19 +1,30 @@
-<div class="usuarios-container">
-    <h2 class="titulo">Eliminar Usuarios</h2>
+<div class="page-header">
+    <h2 class="danger-title">Gestión de Bajas</h2>
+    <p>Ten cuidado: eliminar un usuario revocará permanentemente su acceso al sistema.</p>
+</div>
 
-    <table class="usuarios-table">
+<div class="table-container">
+    <table class="modern-table">
         <thead>
             <tr>
-                <th>Email</th>
-                <th>Acciones</th>
+                <th>Usuario</th>
+                <th class="text-right">Acciones de Seguridad</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let usuario of usuarios">
-                <td>{{ usuario.email }}</td>
-                <td>
-                    <button class="btn-eliminar" (click)="eliminarUsuario(usuario.uid)">
-                        Eliminar
+                <td class="email-cell">
+                    <div class="user-info">
+                        <div class="avatar-mini">
+                            <i class="bi bi-person-x"></i>
+                        </div>
+                        <span class="email-text">{{ usuario.email }}</span>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <button class="btn-delete" (click)="eliminarUsuario(usuario.uid)">
+                        <i class="bi bi-trash3"></i>
+                        <span>Eliminar Usuario</span>
                     </button>
                 </td>
             </tr>

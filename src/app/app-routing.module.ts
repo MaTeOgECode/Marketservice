@@ -13,6 +13,9 @@ import { AgregarServiciosComponent } from './modules/dash_board/bienvenida-prove
 import { ListadeServiciosComponent } from './modules/dash_board/bienvenida-proveedor/listade-servicios/listade-servicios.component';
 import { authenticationGuard } from './guards/authentication.guard';
 import { GestionarCategoriaComponent } from './modules/dash_board/gestionar-categorias/gestionar-categorias.component';
+import { BusquedaServiciosComponent } from './modules/dash_board/busqueda-servicios/busqueda-servicios.component';
+import { DetalleServicioComponent } from './modules/dash_board/detalle-servicio/detalle-servicio.component';
+import { PerfilComponent } from './modules/dash_board/perfil/perfil.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -30,6 +33,9 @@ const routes: Routes = [
     path: "bienvenidausuario", component: BienvenidaUsuarioComponent, children: [
       { path: 'seleccion-empresas', component: SeleccionEmpresasComponent },
       { path: 'servicios-contratados', component: ServiciosContratadosComponent },
+      { path: 'busqueda-servicios', component: BusquedaServiciosComponent },
+      { path: 'detalle-servicio/:id', component: DetalleServicioComponent },
+      { path: 'perfil', component: PerfilComponent },
     ], canActivate: [authenticationGuard], data: { rol: 'usuario' }
   },
 

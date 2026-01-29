@@ -12,6 +12,9 @@ import { ListadeServiciosComponent } from './bienvenida-proveedor/listade-servic
 import { ServiciosContratadosComponent } from './bienvenida-usuario/servicios-contratados/servicios-contratados.component';
 import { SeleccionEmpresasComponent } from './bienvenida-usuario/seleccion-empresas/seleccion-empresas.component';
 import { FormsModule } from '@angular/forms';
+import { BusquedaServiciosComponent } from './busqueda-servicios/busqueda-servicios.component';
+import { DetalleServicioComponent } from './detalle-servicio/detalle-servicio.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { FormsModule } from '@angular/forms';
     ListadeServiciosComponent,
     ServiciosContratadosComponent,
     SeleccionEmpresasComponent,
+    BusquedaServiciosComponent,
+    DetalleServicioComponent,
+    PerfilComponent,
    
   ],
   imports: [

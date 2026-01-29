@@ -1,0 +1,71 @@
+<div class="container-busqueda">
+  <div class="header-busqueda">
+    <h2>Encuentra el servicio que necesitas</h2>
+    <p class="subtitle">Busca entre cientos de profesionales calificados</p>
+    
+    <div class="search-box-wrapper">
+      <div class="search-input-group">
+        <i class="bi bi-search search-main-icon"></i>
+        <input type="text" 
+               placeholder="¿Qué servicio buscas? (ej. Plomero, Limpieza...)" 
+               (input)="filtrarPorTexto($event)">
+      </div>
+    </div>
+  </div>
+
+  <div class="categorias-scroll">
+    <div class="categorias-container">
+      <button *ngFor="let cat of categorias" 
+              [class.active]="categoriaSeleccionada === cat"
+              (click)="filtrarPorCategoria(cat)"
+              class="cat-pill">
+        <i class="bi bi-tag-fill" *ngIf="categoriaSeleccionada === cat"></i>
+        {{ cat }}
+      </button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="servicios-grid" *ngIf="serviciosFiltrados.length > 0">
+    <div class="card-servicio" *ngFor="let s of serviciosFiltrados">
+      <div class="card-img">
+        <img [src]="s.imagen || 'https://via.placeholder.com/400x250?text=Servicio'" alt="Servicio">
+        <span class="categoria-tag">{{ s.categoria }}</span>
+      </div>
+      
+      <div class="card-info">
+        <h3>{{ s.nombre }}</h3>
+        <p class="descripcion">{{ s.descripcion | slice:0:80 }}...</p>
+        
+        <div class="rating-box" *ngIf="s.promedioEstrellas > 0">
+          <i class="bi bi-star-fill star-icon"></i> 
+          <strong>{{ s.promedioEstrellas }}</strong> 
+          <span class="votos">({{ s.totalVotos }} reseñas)</span>
+        </div>
+
+        <div class="card-footer">
+          <div class="precio-container">
+            <span class="label-precio">Desde</span>
+            <span class="precio">Bs. {{ s.precio }}</span>
+          </div>
+          <button class="btn-ver" [routerLink]="['/bienvenidausuario/detalle-servicio', s.id]">
+            Detalles
+            <i class="bi bi-arrow-right-short"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-results" *ngIf="serviciosFiltrados.length === 0">
+    <div class="empty-animation">
+      <i class="bi bi-search"></i>
+    </div>
+    <h3>No encontramos resultados</h3>
+    <p>Intenta con otras palabras clave o explora todas las categorías.</p>
+    <button class="btn-reset" (click)="filtrarPorCategoria('Todos')">
+      Mostrar todo
+    </button>
+  </div>
+</div>

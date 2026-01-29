@@ -1,0 +1,81 @@
+<div class="perfil-container" *ngIf="!cargando">
+  <div class="perfil-card">
+    <div class="header-perfil">
+      <div class="title-group">
+        <h2>Configuración de Perfil</h2>
+        <p>Gestiona tu información personal y presencia en la plataforma</p>
+      </div>
+      <span class="rol-tag" [ngClass]="usuario.rol">{{ usuario.rol | titlecase }}</span>
+    </div>
+
+    <div class="foto-seccion">
+      <div class="avatar-wrapper">
+        <div class="avatar-container" (click)="fileInput.click()" title="Cambiar foto de perfil">
+          <img [src]="usuario.fotoUrl || 'assets/default-user.png'" alt="Avatar">
+          <div class="overlay">
+            <i class="bi bi-camera"></i>
+            <span>Cambiar</span>
+          </div>
+        </div>
+        <input type="file" #fileInput (change)="cambiarFoto($event)" accept="image/*" hidden>
+      </div>
+      
+      <div class="upload-status" *ngIf="subiendoImagen">
+        <div class="progress-mini">
+          <div class="progress-bar-fill" [style.width.%]="porcentajeSubida"></div>
+        </div>
+        <small>Subiendo... {{ porcentajeSubida | number:'1.0-0' }}%</small>
+      </div>
+    </div>
+
+    <form (ngSubmit)="actualizarPerfil()" class="perfil-form">
+      <div class="form-grid">
+        
+        <div class="form-group full-width">
+          <label><i class="bi bi-envelope"></i> Correo Electrónico</label>
+          <input type="text" [value]="usuario.email" disabled class="disabled-input">
+          <small class="input-hint">El correo no puede ser modificado</small>
+        </div>
+
+        <div class="form-group full-width">
+          <label><i class="bi bi-person"></i> Nombre Completo</label>
+          <input type="text" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Tu nombre">
+        </div>
+
+        <ng-container *ngIf="usuario.rol !== 'proveedor'">
+          <div class="form-group">
+            <label><i class="bi bi-card-text"></i> Cédula de Identidad</label>
+            <input type="text" [(ngModel)]="usuario.ci" name="ci" placeholder="Ej. 1234567 LP">
+          </div>
+          <div class="form-group">
+            <label><i class="bi bi-geo-alt"></i> Dirección de Domicilio</label>
+            <input type="text" [(ngModel)]="usuario.direccion" name="direccion" placeholder="Calle, zona, nro de casa">
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="usuario.rol === 'proveedor'">
+          <div class="form-group">
+            <label><i class="bi bi-whatsapp"></i> Teléfono / WhatsApp</label>
+            <input type="text" [(ngModel)]="usuario.contacto" name="contacto" placeholder="Ej. +591 70000000">
+          </div>
+          <div class="form-group">
+            <label><i class="bi bi-stars"></i> Especialidad</label>
+            <input type="text" [(ngModel)]="usuario.especialidad" name="especialidad" placeholder="Ej. Plomería Integral">
+          </div>
+          <div class="form-group full-width">
+            <label><i class="bi bi-building"></i> Ciudad / Ubicación</label>
+            <input type="text" [(ngModel)]="usuario.ubicacion" name="ubicacion" placeholder="Ej. La Paz, Bolivia">
+          </div>
+        </ng-container>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" [disabled]="subiendoImagen">
+          <i class="bi bi-cloud-check" *ngIf="!subiendoImagen"></i>
+          {{ subiendoImagen ? 'Procesando...' : 'Guardar cambios' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

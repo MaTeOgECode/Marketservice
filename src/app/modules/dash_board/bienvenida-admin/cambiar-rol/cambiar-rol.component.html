@@ -1,27 +1,43 @@
-<h2>Cambiar rol de Usuarios</h2>
-<table cellpadding="5" cellspacing="0" border="1">
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Estado</th>
+<div class="page-header">
+    <h2>Gestión de Roles</h2>
+    <p>Asigna privilegios y cambia el tipo de cuenta de los usuarios registrados.</p>
+</div>
 
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let usuario of usuarios">
-            <td>{{ usuario.email }}</td>
-            <td>
-                <select [(ngModel)]="rolSeleccionado[usuario.uid]">
-                    <option value="admin">Admin</option>
-                    <option value="usuario">Usuario</option>
-                    <option value="proveedor">Proveedor</option>
-                </select>
-            </td>
-
-            <td>
-                <button (click)="cambiarRol(usuario.uid)">Actualizar Rol</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="modern-table">
+        <thead>
+            <tr>
+                <th>Usuario / Email</th>
+                <th>Rol Actual / Nuevo</th>
+                <th class="text-center">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of usuarios">
+                <td class="email-cell">
+                    <div class="user-info">
+                        <span class="user-icon">
+                            <i class="bi bi-person"></i>
+                        </span>
+                        {{ usuario.email }}
+                    </div>
+                </td>
+                <td>
+                    <div class="select-wrapper">
+                        <select [(ngModel)]="rolSeleccionado[usuario.uid]" class="role-select">
+                            <option value="admin">Administrador</option>
+                            <option value="usuario">Cliente / Usuario</option>
+                            <option value="proveedor">Proveedor de Servicio</option>
+                        </select>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button class="btn-update" (click)="cambiarRol(usuario.uid)">
+                        <i class="bi bi-arrow-repeat"></i>
+                        <span>Actualizar</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

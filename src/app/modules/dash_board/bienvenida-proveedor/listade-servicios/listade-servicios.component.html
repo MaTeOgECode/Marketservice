@@ -1,7 +1,7 @@
 <div class="container-lista">
   <div class="header-section">
     <h2>Mis Servicios Publicados</h2>
-    <p>Gestiona y edita tus ofertas actuales.</p>
+    <p>Gestiona, edita o elimina tus ofertas actuales en el mercado.</p>
   </div>
 
   <div class="grid-servicios-pro">
@@ -9,28 +9,38 @@
       <div class="img-preview">
         <img [src]="s.imagen" alt="Servicio">
         <div class="badge-status" [ngClass]="s.totalContratos > 0 ? 'contratado' : 'libre'">
+          <i class="bi" [ngClass]="s.totalContratos > 0 ? 'bi-check-circle-fill' : 'bi-clock-history'"></i>
           {{ s.totalContratos > 0 ? 'CONTRATADO' : 'DISPONIBLE' }}
         </div>
       </div>
       
       <div class="info-content">
-        <span class="categoria-tag">{{ s.categoria }}</span>
+        <div class="meta-info">
+          <span class="categoria-tag">{{ s.categoria }}</span>
+        </div>
         <h3>{{ s.nombre }}</h3>
         <p class="descripcion-corta">{{ s.descripcion }}</p>
-        <p class="precio-tag"><strong>Bs. {{ s.precio }}</strong></p>
+        <p class="precio-tag">Bs. {{ s.precio }}</p>
       </div>
 
       <div class="acciones-footer">
-        <button class="btn-edit" (click)="abrirModal(s)">Editar</button>
-        <button class="btn-del" (click)="eliminar(s.id)">Eliminar</button>
+        <button class="btn-edit" (click)="abrirModal(s)">
+          <i class="bi bi-pencil"></i> Editar
+        </button>
+        <button class="btn-del" (click)="eliminar(s.id)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="modal-overlay" *ngIf="mostrarModal">
-    <div class="modal-content">
+  <div class="modal-overlay animate-fade" *ngIf="mostrarModal">
+    <div class="modal-content animate-slide-up">
       <div class="modal-header">
-        <h3>Editar Servicio</h3>
+        <div class="header-text">
+          <h3>Editar Servicio</h3>
+          <span>Actualiza los detalles de tu publicación</span>
+        </div>
         <button class="btn-close" (click)="cerrarModal()">&times;</button>
       </div>
 
@@ -61,10 +71,11 @@
         </div>
 
         <div class="form-group">
-          <label>Imagen del Servicio</label>
-          <input type="file" (change)="onFileSelected($event)" accept="image/*">
+          <label>Cambiar Imagen</label>
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" class="custom-file-input">
           <div class="mini-preview" *ngIf="servicioEdicion.imagen">
             <img [src]="servicioEdicion.imagen" alt="Vista previa">
+            <span>Imagen actual</span>
           </div>
         </div>
       </div>

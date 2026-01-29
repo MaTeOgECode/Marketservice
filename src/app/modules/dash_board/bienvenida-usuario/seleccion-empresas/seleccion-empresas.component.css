@@ -1,32 +1,169 @@
-.container-servicios { padding: 30px; background: #f8f9fa; min-height: 100vh; }
-.header { margin-bottom: 30px; text-align: center; }
-.grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-
-.card-servicio { 
-  background: white; 
-  border-radius: 15px; 
-  overflow: hidden; 
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08); 
-  transition: transform 0.3s ease;
-}
-.card-servicio:hover { transform: translateY(-5px); }
-
-.image-container { position: relative; height: 180px; }
-.image-container img { width: 100%; height: 100%; object-fit: cover; }
-
-.badge-precio { 
-  position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); 
-  color: white; padding: 5px 12px; border-radius: 20px; font-weight: bold; 
+.container-servicios {
+  padding: 10px 0;
 }
 
-.card-body { padding: 20px; }
-.categoria { color: #007bff; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
-h3 { margin: 10px 0; color: #2d3436; }
-p { color: #636e72; font-size: 0.9rem; line-height: 1.4; height: 40px; overflow: hidden; }
-
-.card-footer { margin-top: 20px; }
-.btn-contratar { 
-  width: 100%; padding: 10px; background: #28a745; color: white; 
-  border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
+.header-main {
+  margin-bottom: 40px;
+  text-align: left;
 }
-.btn-contratar:hover { background: #218838; }
+
+.header-main h1 {
+  font-size: 28px;
+  color: #1e293b;
+  font-weight: 800;
+  margin: 0;
+}
+
+.header-main p {
+  color: #64748b;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+/* Grid adaptable */
+.grid-servicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Tarjeta de Servicio */
+.card-servicio {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-servicio:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #cbd5e1;
+}
+
+/* Contenedor de Imagen */
+.image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card-servicio:hover .image-container img {
+  transform: scale(1.1);
+}
+
+.overlay-price {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+
+.badge-precio {
+  background-color: #1e293b; /* Color oscuro para contraste */
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* Cuerpo de la Tarjeta */
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.categoria-pill {
+  display: inline-block;
+  background-color: #eff6ff;
+  color: #2563eb;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.servicio-title {
+  font-size: 18px;
+  color: #1e293b;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.descripcion-text {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Botón Contratar */
+.card-action {
+  margin-top: auto;
+}
+
+.btn-contratar {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-contratar:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-contratar i {
+  font-size: 16px;
+}
+
+/* Estado Vacío */
+.no-servicios {
+  text-align: center;
+  padding: 100px 20px;
+  color: #94a3b8;
+}
+
+.empty-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.no-servicios p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #475569;
+  margin: 0;
+}

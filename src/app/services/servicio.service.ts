@@ -2,7 +2,7 @@ import { Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Serviciomodels } from '../models/serviciomodels';
 import { Observable } from 'rxjs';
-
+import { from } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +19,31 @@ export class ServicioService {
       return this.firestore.collection('servicios').add(servicio);
     });
   }
+  
+  // servicio.service.ts
+
+getServicios(): Observable<any[]> {
+  const db = this.firestore.firestore;
+  // Traemos la colección 'servicios'
+  return from(
+    db.collection('servicios').get().then(snapshot => {
+      return snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          nombre: data['nombre'],
+          descripcion: data['descripcion'],
+          categoria: data['categoria'], // Revisa que en Firebase sea minúscula
+          precio: data['precio'],
+          imagen: data['imagen'], // Campo exacto para la imagen
+          promedioEstrellas: data['promedioEstrellas'] || 0,
+          totalVotos: data['totalVotos'] || 0,
+          proveedorId: data['proveedorId'] // Vital para el detalle
+        };
+      });
+    })
+  );
+}
 
   obtenerTodosLosServicios(): Observable<Serviciomodels[]> {
     return runInInjectionContext(this.injector, () => {

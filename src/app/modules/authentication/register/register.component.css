@@ -1,88 +1,91 @@
-div {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+/* Contenedor Principal con fondo gris muy suave */
+.login-container, .register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f8fafc; /* Fondo claro tipo iOS/SaaS */
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+}
+
+/* Tarjeta Blanca y Limpia */
+.login-card, .register-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
 }
 
 h2 {
-  text-align: center;
-  color: #333;
+    color: #1e293b;
+    font-size: 28px;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
-p {
-  text-align: center;
-  font-weight: bold;
-  color: #555;
+.subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 32px;
 }
 
-.form-group {
-  margin-bottom: 15px;
+/* Inputs en modo claro */
+.form-group label {
+    display: block;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+    margin-left: 4px;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #666;
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    color: #1e293b;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
 }
 
-input,
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #007bff;
+/* Botones */
+.login-button, .submit-button {
+    background-color: #2563eb;
+    color: white;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.proveedor-box {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #eef6ff;
-  border: 1px solid #cce0ff;
-  border-radius: 6px;
-}
-
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-button {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s;
-}
-
-button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.register-button {
-  background-color: transparent;
-  color: #007bff;
-  border: 1px solid #007bff;
+.register-button, .back-button {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .register-button:hover {
-  background-color: #f0f7ff;
+    background-color: #e2e8f0;
 }

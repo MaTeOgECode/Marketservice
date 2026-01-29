@@ -1,40 +1,47 @@
 <div class="admin-layout">
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h4 class="brand">Administrador</h4>
+            <div class="admin-badge">
+                <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h4 class="brand">Admin Panel</h4>
         </div>
 
         <nav class="menu">
-            <a routerLink="/bienvenidaadmin/cambiar-rol" routerLinkActive="active">
+            <a routerLink="/bienvenidaadmin/cambiar-rol" routerLinkActive="active" class="menu-item">
                 <i class="bi bi-people"></i>
                 <span>Editar Roles</span>
             </a>
 
-            <a routerLink="/bienvenidaadmin/desactivar-usuario" routerLinkActive="active">
+            <a routerLink="/bienvenidaadmin/desactivar-usuario" routerLinkActive="active" class="menu-item">
                 <i class="bi bi-person-check"></i>
                 <span>Desactivar Usuarios</span>
             </a>
 
-            <a routerLink="/bienvenidaadmin/gestionar-categorias" routerLinkActive="active">
+            <a routerLink="/bienvenidaadmin/gestionar-categorias" routerLinkActive="active" class="menu-item">
                 <i class="bi bi-gear"></i>
                 <span>Gestionar Categorías</span>
             </a>
         </nav>
+
+        <div class="sidebar-footer">
+            <p>MarketService v2.0</p>
+        </div>
     </aside>
 
-    <!-- Main content -->
     <main class="main">
         <header class="topbar">
-            <h3 class="title">Panel de Administración</h3>
+            <h3 class="title">Panel de Control</h3>
 
-            <button class="btn-logout" (click)="logout()">
-                <i class="bi bi-box-arrow-right"></i>
-                Cerrar sesión
-            </button>
+            <div class="topbar-actions">
+                <button class="btn-logout" (click)="logout()">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Cerrar sesión</span>
+                </button>
+            </div>
         </header>
 
-        <section class="content">
+        <section class="content-area">
             <router-outlet></router-outlet>
         </section>
     </main>

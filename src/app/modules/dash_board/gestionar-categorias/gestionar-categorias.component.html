@@ -1,22 +1,26 @@
 <div class="container-admin">
   <div class="header-cat">
-    <h2>Gestionar Categorías del Sistema</h2>
-    <p>Agregue o elimine las categorías que los proveedores usarán para sus servicios.</p>
+    <h2>Gestionar Categorías</h2>
+    <p>Define los rubros en los que los proveedores podrán ofrecer sus servicios.</p>
   </div>
 
   <div class="card-input">
     <div class="form-group">
-      <label for="nombre">Nombre de la Categoría</label>
+      <label for="nombre">Nombre de la Nueva Categoría</label>
       <div class="input-wrapper">
-        <input 
-          id="nombre"
-          type="text" 
-          [(ngModel)]="nombreCat" 
-          placeholder="Ej: Carpintería, Limpieza, Plomería..."
-          (keyup.enter)="agregar()"
-        >
+        <div class="icon-input">
+          <i class="bi bi-tag"></i>
+          <input 
+            id="nombre"
+            type="text" 
+            [(ngModel)]="nombreCat" 
+            placeholder="Ej: Carpintería, Limpieza, Plomería..."
+            (keyup.enter)="agregar()"
+          >
+        </div>
         <button (click)="agregar()" class="btn-add" [disabled]="!nombreCat.trim()">
-          Agregar Categoría
+          <i class="bi bi-plus-lg"></i>
+          <span>Agregar</span>
         </button>
       </div>
     </div>
@@ -32,15 +36,22 @@
       </thead>
       <tbody>
         <tr *ngFor="let cat of categorias">
-          <td>{{ cat.nombre }}</td>
+          <td class="cat-name">
+            <div class="badge-dot"></div>
+            {{ cat.nombre }}
+          </td>
           <td class="text-center">
-            <button (click)="borrar(cat.id)" class="btn-delete">
-              Eliminar
+            <button (click)="borrar(cat.id)" class="btn-delete-cat" title="Eliminar categoría">
+              <i class="bi bi-trash"></i>
+              <span>Borrar</span>
             </button>
           </td>
         </tr>
         <tr *ngIf="categorias.length === 0">
-          <td colspan="2" class="empty-msg">No hay categorías registradas.</td>
+          <td colspan="2" class="empty-msg">
+            <i class="bi bi-info-circle"></i>
+            No hay categorías registradas aún.
+          </td>
         </tr>
       </tbody>
     </table>

@@ -1,51 +1,56 @@
 <div class="client-layout">
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h4 class="brand">Panel del Cliente</h4>
+            <div class="user-avatar-main">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <h4 class="brand">MarketService</h4>
         </div>
 
         <nav class="menu">
-            <a routerLink="/bienvenidausuario/seleccion-empresas" routerLinkActive="active">
+            <a routerLink="/bienvenidausuario/seleccion-empresas" routerLinkActive="active" class="menu-item">
                 <i class="bi bi-briefcase"></i>
-                <span>Servicios</span>
+                <span>Explorar Servicios</span>
             </a>
 
-            <a routerLink="/bienvenidausuario/busqueda-servicios" routerLinkActive="active">
+            <a routerLink="/bienvenidausuario/busqueda-servicios" routerLinkActive="active" class="menu-item">
                 <i class="bi bi-search"></i>
-                <span>Búsqueda</span>
+                <span>Buscar Profesional</span>
             </a>
 
-            <a routerLink="/bienvenidausuario/perfil" routerLinkActive="active">
-                <i class="bi bi-person"></i>
+            <a routerLink="/bienvenidausuario/perfil" routerLinkActive="active" class="menu-item">
+                <i class="bi bi-person-badge"></i>
                 <span>Mi Perfil</span>
             </a>
 
-            <a routerLink="/bienvenidausuario/servicios-contratados" routerLinkActive="active">
+            <a routerLink="/bienvenidausuario/servicios-contratados" routerLinkActive="active" class="menu-item">
                 <i class="bi bi-clock-history"></i>
-                <span>Historial</span>
-            </a>
-
-            <a routerLink="/usuario/otra-opcion" routerLinkActive="active">
-                <i class="bi bi-gear"></i>
-                <span>Configuración</span>
+                <span>Mis Contratos</span>
             </a>
         </nav>
+
+        <div class="sidebar-info">
+            <small>Cliente verificado</small>
+        </div>
     </aside>
 
-    <!-- Main -->
     <main class="main">
         <header class="topbar">
-            <h3 class="title">Bienvenido 👋</h3>
+            <div class="welcome-text">
+                <h3 class="title">Hola, Bienvendido 👋</h3>
+                <span class="date-text">¿Qué servicio necesitas hoy?</span>
+            </div>
 
             <button class="btn-logout" (click)="logout()">
                 <i class="bi bi-box-arrow-right"></i>
-                Salir
+                <span>Cerrar Sesión</span>
             </button>
         </header>
 
         <section class="content">
-            <router-outlet></router-outlet>
+            <div class="router-container">
+                <router-outlet></router-outlet>
+            </div>
         </section>
     </main>
 </div>

@@ -1,0 +1,76 @@
+<div class="detalle-container" *ngIf="!cargando && servicio">
+  <div class="breadcrumb">
+    <span routerLink="/bienvenidausuario/busqueda-servicios">Búsqueda</span> 
+    <i class="bi bi-chevron-right"></i> 
+    <span class="active">{{ servicio.nombre }}</span>
+  </div>
+
+  <div class="card-detalle">
+    <div class="img-section">
+      <img [src]="servicio.imagen || 'assets/no-image.png'" alt="Imagen servicio">
+      <div class="image-overlay">
+        <span class="badge-cat">{{ servicio.categoria }}</span>
+      </div>
+    </div>
+    
+    <div class="info-section">
+      <div class="main-info">
+        <h1>{{ servicio.nombre }}</h1>
+        <div class="price-tag">
+          <small>Precio del servicio</small>
+          <p>Bs. {{ servicio.precio }}</p>
+        </div>
+        <p class="descripcion">{{ servicio.descripcion }}</p>
+      </div>
+
+      <div class="proveedor-card" *ngIf="proveedor">
+        <h3><i class="bi bi-patch-check"></i> Información del Proveedor</h3>
+        <div class="provider-grid">
+          <div class="provider-item">
+            <i class="bi bi-person-badge"></i>
+            <div>
+              <label>Nombre</label>
+              <span>{{ proveedor.nombre }}</span>
+            </div>
+          </div>
+          <div class="provider-item">
+            <i class="bi bi-geo-alt"></i>
+            <div>
+              <label>Ubicación</label>
+              <span>{{ proveedor.ubicacion }}</span>
+            </div>
+          </div>
+          <div class="provider-item">
+            <i class="bi bi-briefcase"></i>
+            <div>
+              <label>Especialidad</label>
+              <span>{{ proveedor.especialidad }}</span>
+            </div>
+          </div>
+          <div class="provider-item">
+            <i class="bi bi-chat-left-dots"></i>
+            <div>
+              <label>Contacto</label>
+              <span>{{ proveedor.contacto }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-contratar-now" (click)='contratar(servicio)'>
+          <i class="bi bi-lightning-charge-fill"></i>
+          Contratar Ahora
+        </button>
+        <button class="btn-volver-link" routerLink="/bienvenidausuario/busqueda-servicios">
+          <i class="bi bi-arrow-left"></i> Volver a la búsqueda
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loader-container" *ngIf="cargando">
+  <div class="spinner"></div>
+  <p>Cargando detalles del servicio...</p>
+</div>

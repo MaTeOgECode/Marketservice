@@ -1,0 +1,127 @@
+.container-busqueda { padding: 10px 0; }
+
+.header-busqueda { margin-bottom: 30px; text-align: center; }
+.header-busqueda h2 { color: #1e293b; font-weight: 800; font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #64748b; font-size: 15px; margin-bottom: 25px; }
+
+/* Caja de Búsqueda */
+.search-box-wrapper { max-width: 600px; margin: 0 auto; }
+.search-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-main-icon {
+  position: absolute;
+  left: 20px;
+  color: #94a3b8;
+  font-size: 18px;
+}
+.search-input-group input {
+  width: 100%;
+  padding: 16px 20px 16px 55px;
+  border-radius: 100px; /* Estilo píldora */
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  font-size: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  transition: all 0.3s;
+}
+.search-input-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+}
+
+/* Filtros de Categoría */
+.categorias-scroll {
+  margin: 20px -10px;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none; /* Ocultar scroll en Firefox */
+}
+.categorias-scroll::-webkit-scrollbar { display: none; }
+
+.categorias-container { display: flex; gap: 12px; }
+.cat-pill {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #475569;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cat-pill:hover { background: #f8fafc; border-color: #cbd5e1; }
+.cat-pill.active {
+  background: #1e293b;
+  color: white;
+  border-color: #1e293b;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.divider { height: 1px; background: #f1f5f9; margin: 20px 0 30px; }
+
+/* Grid de Servicios */
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.card-servicio {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+  overflow: hidden;
+  transition: 0.3s;
+}
+.card-servicio:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
+
+.card-img { position: relative; height: 160px; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+.categoria-tag {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 11px; font-weight: 700; color: #2563eb;
+}
+
+.card-info { padding: 15px; }
+.card-info h3 { font-size: 17px; margin: 0 0 8px; color: #1e293b; }
+.descripcion { font-size: 13px; color: #64748b; margin-bottom: 12px; line-height: 1.5; }
+
+.rating-box {
+  display: flex; align-items: center; gap: 5px;
+  margin-bottom: 15px; font-size: 13px;
+}
+.star-icon { color: #f59e0b; }
+.votos { color: #94a3b8; }
+
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 15px; border-top: 1px solid #f8fafc;
+}
+.label-precio { display: block; font-size: 10px; color: #94a3b8; text-transform: uppercase; }
+.precio { font-size: 18px; font-weight: 800; color: #1e293b; }
+
+.btn-ver {
+  background: #f1f5f9; color: #1e293b; border: none;
+  padding: 8px 14px; border-radius: 8px; font-weight: 700;
+  font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px;
+}
+.btn-ver:hover { background: #e2e8f0; }
+
+/* No Results */
+.no-results { text-align: center; padding: 60px 20px; }
+.empty-animation { font-size: 50px; color: #cbd5e1; margin-bottom: 15px; }
+.btn-reset {
+  margin-top: 20px; background: #2563eb; color: white; border: none;
+  padding: 12px 24px; border-radius: 50px; font-weight: 600; cursor: pointer;
+}

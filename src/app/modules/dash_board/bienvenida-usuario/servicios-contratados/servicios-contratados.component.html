@@ -1,85 +1,96 @@
 <div class="container-historial">
-  <h2>Mi Historial de Servicios</h2>
-
-  <div class="tabla-contenedor" *ngIf="misContrataciones.length > 0">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>ID Servicio</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of misContrataciones">
-          <td>{{ item.fechaContratacion?.toDate() | date:'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ item.servicioId }}</td>
-          <td>
-            <span class="badge" [ngClass]="{
-              'badge-pendiente': item.estado === 'pendiente',
-              'badge-cancelado': item.estado === 'cancelado',
-              'badge-completado': item.estado === 'completado'
-            }">
-              {{ item.estado | uppercase }}
-            </span>
-          </td>
-          <td>
-            <button *ngIf="item.estado === 'pendiente'" 
-                    class="btn-completar" 
-                    (click)="abrirModalCompletar(item, $event)">
-              Marcar Completado
-            </button>
-
-            <button *ngIf="item.estado === 'pendiente'" 
-                    class="btn-cancelar" 
-                    (click)="cancelar(item.id)">
-              Cancelar
-            </button>
-            
-            <button class="btn-eliminar" 
-                    [disabled]="item.estado === 'pendiente'"
-                    [title]="item.estado === 'pendiente' ? 'No puedes eliminar un servicio pendiente' : 'Eliminar registro'"
-                    (click)="eliminar(item.id)">
-              Eliminar Historial
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="header-section">
+    <h2>Mi Historial de Servicios</h2>
+    <p>Revisa el estado de tus solicitudes y califica a los profesionales.</p>
   </div>
 
-  <div class="modal-overlay" *ngIf="mostrarModalResena">
-    <div class="modal-resena">
-      <div class="modal-header-icon">✅</div>
+  <div class="card-table" *ngIf="misContrataciones.length > 0">
+    <div class="table-responsive">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>ID de Servicio</th>
+            <th>Estado</th>
+            <th class="text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of misContrataciones">
+            <td class="date-cell">
+              <i class="bi bi-calendar3"></i>
+              {{ item.fechaContratacion?.toDate() | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+            <td><code class="id-tag">{{ item.servicioId }}</code></td>
+            <td>
+              <span class="badge-status" [ngClass]="'status-' + item.estado">
+                {{ item.estado | uppercase }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <div class="btn-group-actions">
+                <button *ngIf="item.estado === 'pendiente'" 
+                        class="btn-action btn-complete" 
+                        (click)="abrirModalCompletar(item, $event)">
+                  <i class="bi bi-check-lg"></i> Finalizar
+                </button>
+
+                <button *ngIf="item.estado === 'pendiente'" 
+                        class="btn-action btn-cancel-req" 
+                        (click)="cancelar(item.id)">
+                  <i class="bi bi-x-lg"></i> Cancelar
+                </button>
+                
+                <button class="btn-action btn-delete-history" 
+                        [disabled]="item.estado === 'pendiente'"
+                        (click)="eliminar(item.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay animate-fade" *ngIf="mostrarModalResena">
+    <div class="modal-resena animate-slide-up">
+      <div class="modal-header-icon">
+        <i class="bi bi-patch-check-fill"></i>
+      </div>
       <h3>¿Servicio Finalizado?</h3>
-      <p>Califica el trabajo realizado para ayudar a otros usuarios.</p>
+      <p>Tu opinión ayuda a la comunidad. Califica el trabajo:</p>
       
       <div class="stars-container">
-  <span *ngFor="let star of [1,2,3,4,5]" 
-        (click)="setRating(star); $event.stopPropagation()" 
-        (mouseenter)="hoverRating = star"
-        (mouseleave)="hoverRating = 0"
-        [class.filled]="star <= (hoverRating || puntuacion)"
-        class="star-item">
-    ★
-  </span>
-</div>
-<p class="rating-text" *ngIf="puntuacion > 0">Has seleccionado: {{ puntuacion }} estrellas</p>
+        <span *ngFor="let star of [1,2,3,4,5]" 
+              (click)="setRating(star); $event.stopPropagation()" 
+              (mouseenter)="hoverRating = star"
+              (mouseleave)="hoverRating = 0"
+              [class.filled]="star <= (hoverRating || puntuacion)"
+              class="star-item">
+          ★
+        </span>
+      </div>
+      
+      <p class="rating-text" [class.visible]="puntuacion > 0">
+        Has seleccionado: <strong>{{ puntuacion }} estrellas</strong>
+      </p>
 
-      <div class="modal-buttons">
-        <button class="btn-confirm" (click)="confirmarCompletado()">
-          {{ puntuacion > 0 ? 'Enviar Calificación y Finalizar' : 'Finalizar sin calificar' }}
+      <div class="modal-footer-btns">
+        <button class="btn-confirm-final" (click)="confirmarCompletado()">
+          {{ puntuacion > 0 ? 'Enviar y Finalizar' : 'Finalizar sin calificar' }}
         </button>
-        <button type="button" class="btn-modal-cancel" (click)="cerrarModal()">
-  Regresar
-</button>
+        <button type="button" class="btn-back" (click)="cerrarModal()">Regresar</button>
       </div>
     </div>
   </div>
 
   <div *ngIf="misContrataciones.length === 0" class="empty-state">
-    <div class="empty-icon">📂</div>
+    <div class="empty-icon-box">
+      <i class="bi bi-folder2-open"></i>
+    </div>
     <p>Aún no has contratado ningún servicio.</p>
+    <button class="btn-explore" routerLink="/bienvenidausuario/seleccion-empresas">Explorar servicios</button>
   </div>
 </div>
